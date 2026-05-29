@@ -8,21 +8,41 @@
 
 ### Для пользователей
 
-| Ввод кода доступа | Список опросов | Прохождение |
-|---|---|---|
-| ![Ввод кода доступа](docs/screenshots/enter.png) | ![Список доступных опросов](docs/screenshots/surveys-list.png) | ![Прохождение опроса](docs/screenshots/take-survey.png) |
+**Ввод кода доступа**
+
+![Ввод кода доступа](docs/screenshots/enter.png)
+
+**Список доступных опросов**
+
+![Список доступных опросов](docs/screenshots/surveys-list.png)
+
+**Прохождение опроса**
+
+![Прохождение опроса](docs/screenshots/take-survey.png)
 
 ### Для администратора
 
-| Панель опросов | Конструктор |
-|---|---|
-| ![Панель администратора](docs/screenshots/admin-dashboard.png) | ![Конструктор опроса](docs/screenshots/create-survey.png) |
+**Панель опросов**
+
+![Панель администратора](docs/screenshots/admin-dashboard.png)
+
+**Конструктор опроса**
+
+![Конструктор опроса](docs/screenshots/create-survey.png)
 
 Просмотр опроса — три вкладки:
 
-| Настройки | Ответы | Статистика |
-|---|---|---|
-| ![Вкладка «Настройки»](docs/screenshots/survey-settings.png) | ![Вкладка «Ответы»](docs/screenshots/survey-responses.png) | ![Вкладка «Статистика»](docs/screenshots/survey-stats.png) |
+**Настройки**
+
+![Вкладка «Настройки»](docs/screenshots/survey-settings.png)
+
+**Ответы**
+
+![Вкладка «Ответы»](docs/screenshots/survey-responses.png)
+
+**Статистика**
+
+![Вкладка «Статистика»](docs/screenshots/survey-stats.png)
 
 ## Стек
 
