@@ -16,3 +16,15 @@ async def get_current_admin(
             status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token"
         )
     return subject
+
+
+async def get_current_user(
+    credentials: HTTPAuthorizationCredentials = Depends(bearer),
+) -> str:
+    """Доступ к опросам: подходит токен пользователя или администратора."""
+    subject = decode_access_token(credentials.credentials)
+    if subject not in ("user", "admin"):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token"
+        )
+    return subject

@@ -1,8 +1,10 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import PrivateRoute from './components/PrivateRoute.jsx';
+import UserRoute from './components/UserRoute.jsx';
 import Layout from './components/Layout.jsx';
 import Landing from './pages/Landing.jsx';
 import Login from './pages/Login.jsx';
+import Enter from './pages/Enter.jsx';
 import Dashboard from './pages/Dashboard.jsx';
 import CreatePoll from './pages/CreatePoll.jsx';
 import PollDetail from './pages/PollDetail.jsx';
@@ -13,10 +15,14 @@ import PollSuccess from './pages/PollSuccess.jsx';
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<Landing />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/p/:id" element={<TakePoll />} />
-      <Route path="/p/:id/success" element={<PollSuccess />} />
+      <Route path="/enter" element={<Enter />} />
+
+      <Route element={<UserRoute />}>
+        <Route path="/" element={<Landing />} />
+        <Route path="/p/:id" element={<TakePoll />} />
+        <Route path="/p/:id/success" element={<PollSuccess />} />
+      </Route>
 
       <Route element={<PrivateRoute />}>
         <Route element={<Layout />}>

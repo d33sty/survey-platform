@@ -4,7 +4,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
 from app.database import get_db
-from app.deps import get_current_admin
+from app.deps import get_current_admin, get_current_user
 from app.models.poll import Poll, Question, QuestionOption
 from app.schemas.poll import PollCreate, PollListItem, PollOut, PollUpdate
 
@@ -51,9 +51,12 @@ async def list_polls(
     return result.scalars().all()
 
 
-# Public endpoint — list active polls (no auth); must be declared before /{poll_id}
+# Authorized users — list active polls; must be declared before /{poll_id}
 @router.get("/active", response_model=list[PollListItem])
-async def list_active_polls(db: AsyncSession = Depends(get_db)):
+async def list_active_polls(
+    db: AsyncSession = Depends(get_db),
+    _: str = Depends(get_current_user),
+):
     result = await db.execute(
         select(Poll).where(Poll.is_active == True).order_by(Poll.created_at.desc())  # noqa: E712
     )
@@ -114,9 +117,13 @@ async def delete_poll(
     await db.commit()
 
 
-# Public endpoint — no auth
+# Authorized users — view a single active poll
 @router.get("/{poll_id}/public", response_model=PollOut)
-async def get_poll_public(poll_id: int, db: AsyncSession = Depends(get_db)):
+async def get_poll_public(
+    poll_id: int,
+    db: AsyncSession = Depends(get_db),
+    _: str = Depends(get_current_user),
+):
     result = await db.execute(
         select(Poll).where(Poll.id == poll_id, Poll.is_active == True).options(*_poll_load)  # noqa: E712
     )

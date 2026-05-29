@@ -4,7 +4,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
 from app.database import get_db
-from app.deps import get_current_admin
+from app.deps import get_current_admin, get_current_user
 from app.models.poll import Answer, AnswerOption, Poll, PollResponse, Question, QuestionOption, QuestionType
 from app.schemas.response import PollResponseListItem, PollResponseOut, SubmitResponseIn
 
@@ -16,7 +16,12 @@ _response_load = [
 
 
 @router.post("/polls/{poll_id}/responses", response_model=PollResponseOut, status_code=status.HTTP_201_CREATED)
-async def submit_response(poll_id: int, payload: SubmitResponseIn, db: AsyncSession = Depends(get_db)):
+async def submit_response(
+    poll_id: int,
+    payload: SubmitResponseIn,
+    db: AsyncSession = Depends(get_db),
+    _: str = Depends(get_current_user),
+):
     result = await db.execute(
         select(Poll).where(Poll.id == poll_id, Poll.is_active == True)  # noqa: E712
         .options(selectinload(Poll.questions).selectinload(Question.options))

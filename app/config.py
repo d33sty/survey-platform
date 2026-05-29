@@ -9,6 +9,7 @@ class Settings(BaseSettings):
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
     ADMIN_SECRET_KEY: str = "12345"
+    USER_SECRET_KEY: str = "MBUFK"
 
 
 settings = Settings()

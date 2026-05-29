@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { client } from '../api/client.js';
+import { useAuth } from '../context/AuthContext.jsx';
 
 export default function TakePoll() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { userToken, token } = useAuth();
+  const authToken = userToken || token;
   const [poll, setPoll] = useState(null);
   const [answers, setAnswers] = useState({});
   const [loading, setLoading] = useState(true);
@@ -12,7 +15,7 @@ export default function TakePoll() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    client.get(`/polls/${id}/public`)
+    client.get(`/polls/${id}/public`, authToken)
       .then(p => {
         setPoll(p);
         const init = {};
@@ -47,7 +50,7 @@ export default function TakePoll() {
 
     setSubmitting(true);
     try {
-      await client.post(`/polls/${id}/responses`, { answers: Object.values(answers) });
+      await client.post(`/polls/${id}/responses`, { answers: Object.values(answers) }, authToken);
       navigate(`/p/${id}/success`);
     } catch (err) {
       setError(err.message);

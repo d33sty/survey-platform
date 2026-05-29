@@ -12,3 +12,10 @@ async def login(payload: LoginRequest):
     if payload.key != settings.ADMIN_SECRET_KEY:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid key")
     return TokenOut(access_token=create_access_token("admin"))
+
+
+@router.post("/user-login", response_model=TokenOut)
+async def user_login(payload: LoginRequest):
+    if payload.key != settings.USER_SECRET_KEY:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid key")
+    return TokenOut(access_token=create_access_token("user"))
