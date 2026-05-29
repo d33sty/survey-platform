@@ -1,0 +1,46 @@
+# Secrets
+.env
+.env.*
+
+# Git
+.git/
+.gitignore
+
+# Python virtual environment & cache
+venv/
+env/
+.venv/
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Frontend deps & build output (rebuilt inside the image)
+frontend/node_modules/
+frontend/dist/
+
+# Logs
+*.log
+
+# Tests & linting caches
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# IDE / Claude
+.vscode/
+.idea/
+.claude/
+CLAUDE.md
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Certbot data (mounted at runtime, not baked into image)
+certbot/
+
+# Docs
+README.md
