@@ -13,7 +13,9 @@ async function request(method, path, body, token) {
 
   if (!res.ok) {
     const err = await res.json().catch(() => ({ detail: res.statusText }));
-    throw new Error(err.detail || 'Ошибка запроса');
+    const error = new Error(err.detail || 'Ошибка запроса');
+    error.status = res.status;
+    throw error;
   }
 
   if (res.status === 204) return null;

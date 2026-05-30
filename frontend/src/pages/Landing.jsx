@@ -1,18 +1,25 @@
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { client } from '../api/client.js';
 import { useAuth } from '../context/AuthContext.jsx';
 
 export default function Landing() {
-  const { userToken, token, isUser, userLogout } = useAuth();
+  const { userToken, token, isUser, userLogout, logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const [polls, setPolls] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     client.get('/polls/active', userToken || token)
       .then(data => setPolls(data))
-      .catch(() => {})
+      .catch(e => {
+        if (e.status === 401) {
+          userLogout();
+          logout();
+          navigate('/enter', { replace: true, state: { from: location } });
+        }
+      })
       .finally(() => setLoading(false));
   }, [userToken, token]);
 

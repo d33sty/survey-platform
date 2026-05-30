@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { client } from '../api/client.js';
 import { useAuth } from '../context/AuthContext.jsx';
 
 export default function TakePoll() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { userToken, token } = useAuth();
-  const authToken = userToken || token;
+  const location = useLocation();
+  const { userToken, token, userLogout, logout } = useAuth();
   const [poll, setPoll] = useState(null);
   const [answers, setAnswers] = useState({});
   const [loading, setLoading] = useState(true);
@@ -24,7 +24,15 @@ export default function TakePoll() {
         });
         setAnswers(init);
       })
-      .catch(e => setError(e.message))
+      .catch(e => {
+        if (e.status === 401) {
+          userLogout();
+          logout();
+          navigate('/enter', { replace: true, state: { from: location } });
+        } else {
+          setError(e.message);
+        }
+      })
       .finally(() => setLoading(false));
   }, [id]);
 
