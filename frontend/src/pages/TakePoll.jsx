@@ -148,7 +148,7 @@ function QuestionInput({ question: q, answer: a, onChange }) {
   if (q.type === 'rating') {
     return (
       <div className="flex gap-2">
-        {[1, 2, 3, 4, 5].map(n => (
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(n => (
           <button
             key={n}
             type="button"

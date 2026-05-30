@@ -6,7 +6,7 @@ import { useAuth } from '../context/AuthContext.jsx';
 const TYPES = [
   { value: 'text', label: 'Текст' },
   { value: 'number', label: 'Число' },
-  { value: 'rating', label: 'Рейтинг (1–5)' },
+  { value: 'rating', label: 'Рейтинг (1–10)' },
   { value: 'single_choice', label: 'Один вариант' },
   { value: 'multiple_choice', label: 'Несколько вариантов' },
 ];
