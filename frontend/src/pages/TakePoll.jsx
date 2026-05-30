@@ -8,6 +8,7 @@ export default function TakePoll() {
   const navigate = useNavigate();
   const location = useLocation();
   const { userToken, token, userLogout, logout } = useAuth();
+  const authToken = userToken || token;
   const [poll, setPoll] = useState(null);
   const [answers, setAnswers] = useState({});
   const [loading, setLoading] = useState(true);
